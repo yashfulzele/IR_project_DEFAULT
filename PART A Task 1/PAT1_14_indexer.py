@@ -1,6 +1,7 @@
 import os
 import re
 import sys
+import pickle
 import tarfile
 import unicodedata
 from nltk.corpus import stopwords
@@ -10,6 +11,7 @@ from nltk.stem import WordNetLemmatizer
 STOPWORDS = stopwords.words('english')
 LEMMATIZER = WordNetLemmatizer()
 DATAFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), sys.argv[1])
+PICKLEFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Data\model_queries_14.pth")
 
 if os.path.exists(DATAFILE) != True:
     print("No such file exists!")
@@ -30,6 +32,7 @@ def normalizeString(s):
     return s
 
 def preprocess(filename):
+    print("Extracting text from documents...")
     pattern = r"en_BDNews24/[0-9]+/"
     tar = tarfile.open(filename, "r:gz")
     corp = []
@@ -37,6 +40,8 @@ def preprocess(filename):
         if re.match(pattern, fname):
             f = tar.extractfile(fname)
             corp.append(f.read().decode('utf-8'))
+
+    print("Extracting specific parts of text...")
 
     sub1 = "<TEXT>"
     sub2 = "</TEXT>"
@@ -69,14 +74,40 @@ def preprocess(filename):
             }
         corpus.append(res)
     
+    print("Tokenizing, removing stopwords and lemmatizing...")
+    
     for dict in corpus:
         text = dict["TEXT"]
         dict["TOKENS"] = [word for word in word_tokenize(text) if word not in STOPWORDS]
         dict["TOKENS"] = [LEMMATIZER.lemmatize(word) for word in dict["TOKENS"]]
         dict["TOKENS"] = list(set(dict["TOKENS"]))
+    
+    dictionary = {}
+    print("Building inverted index...")
 
-    return corpus
+    for dict in corpus:
+        docno = dict["DOCNO"]
+        tokens = dict["TOKENS"]
+        for tk in tokens:
+            if tk in dictionary.keys():
+                dictionary[tk].append(docno)
+            else:
+                dictionary[tk] = []
+                dictionary[tk].append(docno)
+    
+    dictionary = {k : v for k, v in sorted(dictionary.items())}
 
-corpus = preprocess(DATAFILE)
+    print("Saving file to destination...")
+    with open(PICKLEFILE, "wb") as handle:
+        pickle.dump(dictionary, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-print(len(corpus))
+    print("Saved file!")
+    return corpus, dictionary
+
+def save_pickle_file(filename=DATAFILE):
+    if os.path.isfile(PICKLEFILE) == False or os.path.getsize(PICKLEFILE) == 0:
+        _, _ = preprocess(filename)
+    else:
+        print("Saved file!")
+
+save_pickle_file()
