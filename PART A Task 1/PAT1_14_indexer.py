@@ -31,7 +31,7 @@ def normalizeString(s):
     s = re.sub(r"\s+", r" ", s).strip()
     return s
 
-def preprocess(filename):
+def preprocess_data(filename):
     print("Extracting text from documents...")
     pattern = r"en_BDNews24/[0-9]+/"
     tar = tarfile.open(filename, "r:gz")
@@ -102,11 +102,10 @@ def preprocess(filename):
         pickle.dump(dictionary, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     print("Saved file!")
-    return corpus, dictionary
 
 def save_pickle_file(filename=DATAFILE):
     if os.path.isfile(PICKLEFILE) == False or os.path.getsize(PICKLEFILE) == 0:
-        _, _ = preprocess(filename)
+        preprocess_data(filename)
     else:
         print("Saved file!")
 
