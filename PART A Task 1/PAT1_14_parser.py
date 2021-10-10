@@ -10,7 +10,7 @@ from nltk.stem import WordNetLemmatizer
 STOPWORDS = stopwords.words('english')
 LEMMATIZER = WordNetLemmatizer()
 RAW_TEXT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), sys.argv[1])
-TEXT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Data\queries_14.txt")
+TEXT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "queries_14.txt")
 
 if os.path.exists(RAW_TEXT_FILE) != True:
     print("No such file exists!")
@@ -68,6 +68,6 @@ def save_text_file(filename=RAW_TEXT_FILE):
     if os.path.isfile(TEXT_FILE) == False or os.path.getsize(TEXT_FILE) == 0:
         preprocess_queries(filename)
     else:
-        print("Saved file!")
+        print("Saved file already!")
 
 save_text_file()

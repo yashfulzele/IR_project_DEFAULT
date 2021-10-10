@@ -11,7 +11,7 @@ from nltk.stem import WordNetLemmatizer
 STOPWORDS = stopwords.words('english')
 LEMMATIZER = WordNetLemmatizer()
 DATAFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), sys.argv[1])
-PICKLEFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Data\model_queries_14.pth")
+PICKLEFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "model_queries_14.pth")
 
 if os.path.exists(DATAFILE) != True:
     print("No such file exists!")
@@ -35,6 +35,7 @@ def preprocess_data(filename):
     print("Extracting text from documents...")
     pattern = r"en_BDNews24/[0-9]+/"
     tar = tarfile.open(filename, "r:gz")
+
     corp = []
     for fname in tar.getnames():
         if re.match(pattern, fname):
@@ -43,37 +44,21 @@ def preprocess_data(filename):
 
     print("Extracting specific parts of text...")
 
-    sub1 = "<TEXT>"
-    sub2 = "</TEXT>"
-    sub3 = "<DOCNO>"
-    sub4 = "</DOCNO>"
-    sub5 = "<TITLE>"
-    sub6 = "</TITLE>"
     corpus = []
-    for i in range(len(corp)):
-        idx1 = corp[i].index(sub1)
-        idx2 = corp[i].index(sub2)
-        idx3 = corp[i].index(sub3)
-        idx4 = corp[i].index(sub4)
-        idx5 = corp[i].index(sub5)
-        idx6 = corp[i].index(sub6)
-        text = ''
-        for idx in range(idx1 + len(sub1) + 1, idx2):
-            text  = text + corp[i][idx]
-        docno = ''
-        for idx in range(idx3 + len(sub3) + 1, idx4):
-            docno  = docno + corp[i][idx]
-        title = ''
-        for idx in range(idx5 + len(sub5) + 1, idx6):
-            title  = title + corp[i][idx]
+    for doc in corp:
+        docno_pattern = r"<DOCNO>(.*?)</DOCNO>"
+        docno = re.search(docno_pattern, doc).group(1)
+        st = doc.find('<TEXT>') + len('<TEXT>')
+        en = doc.find('</TEXT>')
+        txt = doc[st:en]
         res = {
             "DOCNO" : docno,
-            "TITLE" : normalizeString(title),
-            "TEXT" : normalizeString(text),
+            "TEXT" : normalizeString(txt),
             "TOKENS" : []
-            }
+        }
         corpus.append(res)
     
+    print(f"Length of total corpus is {len(corpus)}.")
     print("Tokenizing, removing stopwords and lemmatizing...")
     
     for dict in corpus:
@@ -107,6 +92,6 @@ def save_pickle_file(filename=DATAFILE):
     if os.path.isfile(PICKLEFILE) == False or os.path.getsize(PICKLEFILE) == 0:
         preprocess_data(filename)
     else:
-        print("Saved file!")
+        print("Saved file already!")
 
 save_pickle_file()
