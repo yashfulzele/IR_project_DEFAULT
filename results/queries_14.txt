@@ -1,0 +1,50 @@
+126,	flu	swine	vaccine
+127,	rare	event	cosmic
+128,	godhra	train	attack
+129,	jackson	untimely	death	michael
+130,	price	product	hike	petroleum
+131,	abduction	murder	journalist
+132,	victory	obama	barack
+133,	torture	prison	abu	ghraib
+134,	ban	slapped	simi
+135,	friendly	budget	central	agriculture	india
+136,	world	piracy	entertainment
+137,	ltte	death	head
+138,	bill	woman	reservation	india
+139,	pirate	somali	vanquishing
+140,	search	life	space	water
+141,	human	cloned	baby	birth
+142,	illegal	felling	tree
+143,	nano	tata	car
+144,	gas	bhopal	tragedy
+145,	bhutto	benazir	assassination
+146,	verdict	ram	janmabhoomi
+147,	india	cyber	crime
+148,	popularity	site	networking	social
+149,	delhi	commonwealth	game
+150,	gate	philanthropic	endeavour	bill
+151,	win	chemistry	indian	prize	nobel
+152,	missile	successful	test	india
+153,	solar	structure	system
+154,	spectrum	raja	scam
+155,	mumbai	attack	taj
+156,	controversy	shashi	tharoor	ipl
+157,	indian	successful	film
+158,	afghanistan	attack	america
+159,	sheikh	election	hasina
+160,	iraq	war
+161,	bush	terrorism	george	anti	operation
+162,	tornado	catastrophic
+163,	india	tiger	conservation
+164,	jackson	child	abuse	michael
+165,	divorce	law	marriage
+166,	disaster	air	kanishka
+167,	government	chechen	rebel
+168,	arrest	house	suu	kyi
+169,	attack	naxalite
+170,	indian	hockey	development
+171,	bakery	witness	best	prime	case
+172,	foeticide	female	india
+173,	olympics
+174,	economic	slump	international
+175,	cricket	tendulkar	sachin	run	record	test
