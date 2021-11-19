@@ -6,4 +6,4 @@ Part-A:
 Part-B:
 * Relevance Feedback - [Problem Statement](https://github.com/yashfulzele/IR_project_DEFAULT/blob/main/rocchioRelevanceFeedback/Default%20Project%20-%20Part%20B.pdf)
 
-The [en_BDNews24 Dataset](https://drive.google.com/drive/folders/1PBdkyftTA86SM9R47rztTlib2ZlYdVVW) is to be used for both the parts.
+The [en_BDNews24](https://drive.google.com/drive/folders/1PBdkyftTA86SM9R47rztTlib2ZlYdVVW) Dataset is to be used for both the parts.
