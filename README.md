@@ -1,4 +1,4 @@
-# Information Retreival Project DEFAULT
+# Information Retrieval Project (DEFAULT)
 Part-A: 
 * Task 1: Building an Inverted Index and Boolean Retrieval - [Problem Statement](https://github.com/yashfulzele/IR_project_DEFAULT/blob/main/invertedIndexBooleanRetrieval/Default%20Project%20-%20Part%20A%20Task%201.pdf) <break> 
 * Task 2: TF-IDF vectorization and Evaluation - [Problem Statement](https://github.com/yashfulzele/IR_project_DEFAULT/blob/main/rankerEvaluator/Default%20Project%20-%20Part%20A%20Task%202.pdf)
